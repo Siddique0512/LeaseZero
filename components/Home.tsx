@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { EncryptedDataFlow, EncryptionLock } from './FHEVisuals';
-// Added ShieldLock to imports
-import { AlertCircle, BuildingIcon, CpuIcon, CheckIcon, ShieldLock, WalletIcon } from './Icons';
+import { AlertCircle, BuildingIcon, CpuIcon, CheckIcon, LeaseZeroLogo, WalletIcon } from './Icons';
 import { UserRole } from '../types';
 
 interface HomeProps {
@@ -18,11 +16,10 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 text-center space-y-8">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight max-w-4xl mx-auto leading-tight">
-          Rent Without Revealing <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Your Salary</span>
+          Rent Without Revealing <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Your Financials</span>
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-          Privacy-first rental eligibility verification using Fully Homomorphic Encryption.
-          Your financial data stays private, always.
+          Privacy-first rental eligibility verification using Fully Homomorphic Encryption. Prove you're qualified without sharing sensitive documents.
         </p>
         
         <div className="pt-8">
@@ -104,10 +101,10 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
       {/* Solution Section */}
       <section className="bg-slate-900/50 py-24 border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-16">
-          <h2 className="text-4xl font-bold">How LocaPrivé Works</h2>
+          <h2 className="text-4xl font-bold">How LeaseZero Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { icon: <EncryptionLock active />, title: "Tenant Encrypts", desc: "Income data is encrypted locally before upload." },
+              { icon: <EncryptionLock active />, title: "Tenant Encrypts", desc: "Financial data is encrypted locally before upload." },
               { icon: <BuildingIcon className="w-8 h-8 text-indigo-400" />, title: "Landlord Sets", desc: "Rental requirements are encrypted & stored." },
               { icon: <CpuIcon className="w-8 h-8 text-cyan-400 animate-pulse" />, title: "FHE Compute", desc: "Smart contract compares data without decrypting it." },
               { icon: <CheckIcon className="w-8 h-8 text-green-400" />, title: "Result Revealed", desc: "Only the Pass/Fail result is visible to anyone." }
@@ -120,7 +117,7 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
             ))}
           </div>
           <div className="p-6 bg-indigo-600/10 rounded-2xl border border-indigo-500/30 max-w-2xl mx-auto inline-block">
-             <span className="text-indigo-300 font-medium">Your salary is NEVER visible—even to the blockchain node operators</span>
+             <span className="text-indigo-300 font-medium">Your sensitive data is NEVER visible—even to the blockchain node operators</span>
           </div>
         </div>
       </section>
@@ -148,10 +145,13 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
              <li>• GDPR "Privacy by Design" native</li>
              <li>• Mathematical certainty of privacy</li>
            </ul>
-           <div className="p-4 bg-slate-950 rounded-xl border border-white/5 font-mono text-xs text-indigo-300">
-              <code>{`if (encryptedIncome >= encryptedRequirement) {
-  emit Verified(tenantAddress, true);
-}`}</code>
+           <div className="p-4 bg-slate-950 rounded-xl border border-white/5 font-mono text-xs text-indigo-300 leading-relaxed">
+              <code>{`// FHE Smart Contract Logic
+Result result = FHE.verify(
+    tenant.encryptedData,
+    landlord.encryptedReqs
+);
+// Only 'true' or 'false' is ever revealed.`}</code>
            </div>
         </div>
       </section>
@@ -161,11 +161,11 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between gap-12">
           <div className="space-y-4 max-w-xs">
              <div className="flex items-center gap-2 text-xl font-bold">
-               <ShieldLock className="w-6 h-6 text-indigo-500" />
-               <span>LocaPrivé</span>
+               <LeaseZeroLogo className="w-7 h-7" />
+               <span className="bg-gradient-to-r from-purple-400 to-indigo-400 text-transparent bg-clip-text">LeaseZero</span>
              </div>
              <p className="text-slate-500 text-sm">
-               The future of private rental markets. Built on Fhenix protocol.
+               The future of private rental markets. Built by <a href="https://github.com/Siddique0512" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:underline">@Siddique0512</a>.
              </p>
           </div>
           <div className="flex gap-16">
@@ -173,22 +173,22 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
               <h4 className="font-bold">Links</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
                 <li><a href="#" className="hover:text-white">Documentation</a></li>
-                <li><a href="#" className="hover:text-white">GitHub</a></li>
+                <li><a href="https://github.com/Siddique0512" target="_blank" rel="noopener noreferrer" className="hover:text-white">GitHub</a></li>
                 <li><a href="#" className="hover:text-white">Whitepaper</a></li>
               </ul>
             </div>
             <div className="space-y-4">
               <h4 className="font-bold">Community</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white">Twitter / X</a></li>
-                <li><a href="#" className="hover:text-white">Discord</a></li>
-                <li><a href="#" className="hover:text-white">Telegram</a></li>
+                <li><a href="https://x.com/birdinsky005" target="_blank" rel="noopener noreferrer" className="hover:text-white">Twitter / X</a></li>
+                <li><a href="#" title="Add 'echo_0512' on Discord" className="hover:text-white cursor-pointer">Discord</a></li>
+                <li><a href="https://t.me/Siddique0512" target="_blank" rel="noopener noreferrer" className="hover:text-white">Telegram</a></li>
               </ul>
             </div>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-6 mt-16 text-center text-slate-600 text-xs">
-           Built on Fhenix • GDPR Compliant • Open Source • © 2024 LocaPrivé
+           GDPR Compliant • Open Source • © 2024 LeaseZero
         </div>
       </footer>
     </div>

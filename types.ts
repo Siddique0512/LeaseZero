@@ -1,4 +1,3 @@
-
 export interface Property {
   id: string;
   onChainId?: string; // Links to the smart contract listing ID
@@ -53,7 +52,7 @@ export interface Applicant {
   };
 }
 
-export type ApplicationStatus = 'applied' | 'verification_requested' | 'docs_submitted' | 'approved' | 'rejected';
+export type ApplicationStatus = 'applied' | 'verification_requested' | 'docs_submitted' | 'approved' | 'rejected' | 'acknowledged' | 'withdrawn';
 
 export interface Application {
   id: string;

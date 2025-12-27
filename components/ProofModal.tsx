@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ShieldLock, CheckIcon, XIcon, CpuIcon } from './Icons';
 
@@ -63,7 +62,7 @@ const ProofModal: React.FC<ProofModalProps> = ({ onClose, propertyAddress }) => 
             <div className="p-4 bg-slate-800/50 rounded-2xl border border-white/5 flex gap-3">
                <CpuIcon className="w-5 h-5 text-indigo-400 shrink-0" />
                <p className="text-[10px] text-slate-400 leading-relaxed italic">
-                LocaPrivé computed your eligibility across 6 stability dimensions simultaneously using FHE. Your privacy remained mathematically absolute throughout the process.
+                LeaseZero computed your eligibility across 6 stability dimensions simultaneously using FHE. Your privacy remained mathematically absolute throughout the process.
                </p>
             </div>
           </div>

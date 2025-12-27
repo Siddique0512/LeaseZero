@@ -1,6 +1,5 @@
-
-import React, { useState } from 'react';
-import { parseEther, Contract, BrowserProvider } from 'ethers';
+import React, { useState, useEffect } from 'react';
+import { parseEther, Contract } from 'ethers';
 import { XIcon, ShieldLock, WalletIcon, CheckIcon, AlertCircle } from './Icons';
 import { APP_CONFIG } from '../config';
 
@@ -23,6 +22,31 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   const [txHash, setTxHash] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
+  // Effect to reset internal state when the modal is closed from the parent.
+  // This ensures the modal is fresh every time it's opened.
+  useEffect(() => {
+    if (!isOpen) {
+      const timer = setTimeout(() => {
+        setStatus('idle');
+        setTxHash(null);
+        setErrorMessage('');
+      }, 300); // Delay matches closing animation
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  // Effect to handle the success state and trigger the parent callback with a delay.
+  // This is safer than using setTimeout directly in an async event handler.
+  useEffect(() => {
+    if (status === 'success' && txHash) {
+      const timer = setTimeout(() => {
+        onSuccess(txHash);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [status, txHash, onSuccess]);
+
   if (!isOpen) return null;
 
   const handlePayment = async () => {
@@ -36,8 +60,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
     setErrorMessage('');
 
     try {
-      // Get the signer from the contract runner
-      // In ethers v6, the runner on a write-capable contract is usually the JsonRpcSigner
       const signer = contract.runner as any;
 
       if (!signer.sendTransaction) {
@@ -45,25 +67,15 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
       }
 
       const feeValue = parseEther(APP_CONFIG.TRANSACTION_FEE);
-
-      // Send the transaction
       const tx = await signer.sendTransaction({
         to: APP_CONFIG.DEVELOPER_WALLET,
         value: feeValue
       });
-
-      console.log("Payment sent:", tx.hash);
       
-      // Wait for 1 confirmation
       await tx.wait(1);
 
       setTxHash(tx.hash);
-      setStatus('success');
-      
-      // Short delay to show success state before closing/proceeding
-      setTimeout(() => {
-        onSuccess(tx.hash);
-      }, 1500);
+      setStatus('success'); // This will trigger the useEffect above to handle the next step
 
     } catch (err: any) {
       console.error("Payment failed:", err);

@@ -1,7 +1,6 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShieldLock, WalletIcon, AccessibilityIcon, UserIcon, BuildingIcon } from './Icons';
+import { LeaseZeroLogo, WalletIcon, AccessibilityIcon, UserIcon, BuildingIcon } from './Icons';
 import { APP_CONFIG } from '../config';
 import { UserRole } from '../types';
 
@@ -53,10 +52,8 @@ const Navbar: React.FC<NavbarProps> = ({
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-          <div className="p-2 bg-indigo-600 rounded-lg shadow-lg shadow-indigo-500/30">
-            <ShieldLock className="w-6 h-6 text-white" />
-          </div>
-          <span className={isHighContrast ? 'text-white' : ''}>LocaPrivé</span>
+          <LeaseZeroLogo className="w-7 h-7" />
+          <span className={isHighContrast ? 'text-white' : 'bg-gradient-to-r from-purple-400 to-indigo-400 text-transparent bg-clip-text'}>LeaseZero</span>
         </Link>
 
         {/* Dynamic Navigation - Only show if wallet is connected and role is selected */}

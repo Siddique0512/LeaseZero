@@ -1,5 +1,17 @@
-
 import React from 'react';
+
+export const LeaseZeroLogo = ({ className }: { className?: string }) => (
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+        <defs>
+            <linearGradient id="logo-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#A78BFA" />
+                <stop offset="100%" stopColor="#6366F1" />
+            </linearGradient>
+        </defs>
+        <path d="M25 12L14 3L3 12V25H10V17H18V25H25V12Z" stroke="url(#logo-gradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <ellipse cx="14" cy="17" rx="3.5" ry="5.5" stroke="url(#logo-gradient)" strokeWidth="2.5"/>
+    </svg>
+);
 
 export const ShieldLock = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>

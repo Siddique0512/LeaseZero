@@ -25,7 +25,7 @@ const WalletModal: React.FC<WalletModalProps> = ({ onClose, onConnect }) => {
             </button>
           </div>
           
-          <p className="text-slate-400 text-sm">Choose your preferred wallet provider to access the LocaPrivé dApp on the Fhenix network.</p>
+          <p className="text-slate-400 text-sm">Choose your preferred wallet provider to access the LeaseZero dApp on the Fhenix network.</p>
 
           <div className="grid gap-3">
             {WALLETS.map((w) => (

@@ -1,7 +1,6 @@
-
 import { Application } from '../types';
 
-const APP_STORAGE_KEY = 'locaprive_applications';
+const APP_STORAGE_KEY = 'leasezero_applications';
 
 export const getApplications = (): Application[] => {
   const data = localStorage.getItem(APP_STORAGE_KEY);

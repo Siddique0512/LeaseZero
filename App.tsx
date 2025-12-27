@@ -35,7 +35,7 @@ const App: React.FC = () => {
   
   // Initialize properties from localStorage or fallback to MOCK_PROPERTIES
   const [properties, setProperties] = useState<Property[]>(() => {
-    const saved = localStorage.getItem('locaprive_properties');
+    const saved = localStorage.getItem('leasezero_properties');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
@@ -55,7 +55,7 @@ const App: React.FC = () => {
 
   // Persist state
   useEffect(() => {
-    localStorage.setItem('locaprive_properties', JSON.stringify(properties));
+    localStorage.setItem('leasezero_properties', JSON.stringify(properties));
   }, [properties]);
 
   useEffect(() => {
