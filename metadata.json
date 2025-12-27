@@ -1,0 +1,5 @@
+{
+  "name": "Copy of LocaPrivé",
+  "description": "A privacy-first rental eligibility verification platform using Fully Homomorphic Encryption (FHE) to protect tenant financial data.",
+  "requestFramePermissions": []
+}

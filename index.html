@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocaPrivé | Privacy-First Rentals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A;
+            color: #F8FAFC;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-indigo {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+
+        /* High Contrast Mode */
+        .high-contrast {
+            background-color: #000000 !important;
+            color: #FFFFFF !important;
+        }
+        .high-contrast .glass {
+            background: #000000 !important;
+            border: 2px solid #FFFFFF !important;
+            backdrop-filter: none !important;
+        }
+        .high-contrast button, .high-contrast a {
+            outline: 2px solid transparent;
+        }
+        .high-contrast button:focus, .high-contrast a:focus {
+            outline: 3px solid #FFFF00 !important;
+        }
+        .high-contrast .text-slate-400, 
+        .high-contrast .text-slate-500,
+        .high-contrast .text-indigo-400,
+        .high-contrast .text-cyan-400 {
+            color: #FFFF00 !important;
+        }
+        .high-contrast .bg-indigo-600,
+        .high-contrast .bg-indigo-500 {
+            background-color: #FFFFFF !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+        }
+        .high-contrast border-white\/10,
+        .high-contrast border-slate-700 {
+            border-color: #FFFFFF !important;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "ethers": "https://esm.sh/ethers@6.11.1"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
