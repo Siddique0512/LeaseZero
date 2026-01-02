@@ -19,7 +19,7 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
           Rent Without Revealing <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Your Financials</span>
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-          Privacy-first rental eligibility verification using Fully Homomorphic Encryption. Prove you're qualified without sharing sensitive documents.
+          Privacy-first rental eligibility verification using advanced cryptographic checks. Verify Eligibility without sharing sensitive documents.
         </p>
         
         <div className="pt-8">
@@ -55,7 +55,7 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
            <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
            <span>Zero Data Leakage</span>
            <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
-           <span>Fhenix Protocol Powered</span>
+           <span>Secure Verification</span>
         </div>
       </section>
 
@@ -135,9 +135,10 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
              <li>• Complience is a manual nightmare</li>
            </ul>
         </div>
-        <div className="p-8 bg-indigo-900/20 rounded-3xl border border-indigo-500/30 space-y-6 glow-indigo">
+        
+        <div className="p-8 bg-indigo-900/20 rounded-3xl border border-indigo-500/30 space-y-6">
            <h3 className="text-2xl font-bold flex items-center gap-2">
-             <span className="text-green-400">✅</span> FHE Benefits
+             <span className="text-green-400">✅</span> Privacy Benefits
            </h3>
            <ul className="space-y-4 text-slate-200">
              <li>• Data stays encrypted during computation</li>
@@ -146,12 +147,12 @@ const Home: React.FC<HomeProps> = ({ walletAddress, userRole, onConnectClick }) 
              <li>• Mathematical certainty of privacy</li>
            </ul>
            <div className="p-4 bg-slate-950 rounded-xl border border-white/5 font-mono text-xs text-indigo-300 leading-relaxed">
-              <code>{`// FHE Smart Contract Logic
-Result result = FHE.verify(
+              <code>{`// Secure Verification Logic
+const result = PrivacyEngine.verify(
     tenant.encryptedData,
-    landlord.encryptedReqs
+    landlord.encryptedRequirements
 );
-// Only 'true' or 'false' is ever revealed.`}</code>
+// Only 'pass' or 'fail' is ever revealed.`}</code>
            </div>
         </div>
       </section>

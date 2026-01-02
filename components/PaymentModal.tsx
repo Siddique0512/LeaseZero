@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { parseEther, Contract } from 'ethers';
+import { ethers, Contract } from 'ethers';
 import { XIcon, ShieldLock, WalletIcon, CheckIcon, AlertCircle } from './Icons';
 import { APP_CONFIG } from '../config';
 
@@ -11,38 +11,33 @@ interface PaymentModalProps {
   contract: Contract | null;
 }
 
-const PaymentModal: React.FC<PaymentModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  onSuccess, 
+const PaymentModal: React.FC<PaymentModalProps> = ({
+  isOpen,
+  onClose,
+  onSuccess,
   actionName,
-  contract 
+  contract
 }) => {
   const [status, setStatus] = useState<'idle' | 'processing' | 'success' | 'error'>('idle');
   const [txHash, setTxHash] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // Effect to reset internal state when the modal is closed from the parent.
-  // This ensures the modal is fresh every time it's opened.
   useEffect(() => {
     if (!isOpen) {
       const timer = setTimeout(() => {
         setStatus('idle');
         setTxHash(null);
         setErrorMessage('');
-      }, 300); // Delay matches closing animation
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // Effect to handle the success state and trigger the parent callback with a delay.
-  // This is safer than using setTimeout directly in an async event handler.
   useEffect(() => {
     if (status === 'success' && txHash) {
       const timer = setTimeout(() => {
         onSuccess(txHash);
       }, 1500);
-
       return () => clearTimeout(timer);
     }
   }, [status, txHash, onSuccess]);
@@ -50,6 +45,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   if (!isOpen) return null;
 
   const handlePayment = async () => {
+    // Ethers v6 uses `runner` property on Contract to access the Signer
     if (!contract || !contract.runner) {
       setErrorMessage("Wallet not connected properly.");
       setStatus('error');
@@ -60,27 +56,24 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
     setErrorMessage('');
 
     try {
-      const signer = contract.runner as any;
+      const signer = contract.runner as any; // Cast to any to access sendTransaction on the runner/signer
+      // Ethers v6 syntax: parseEther
+      const feeValue = ethers.parseEther(APP_CONFIG.TRANSACTION_FEE);
 
-      if (!signer.sendTransaction) {
-        throw new Error("Invalid signer");
-      }
-
-      const feeValue = parseEther(APP_CONFIG.TRANSACTION_FEE);
       const tx = await signer.sendTransaction({
         to: APP_CONFIG.DEVELOPER_WALLET,
         value: feeValue
       });
-      
+
       await tx.wait(1);
 
       setTxHash(tx.hash);
-      setStatus('success'); // This will trigger the useEffect above to handle the next step
+      setStatus('success');
 
     } catch (err: any) {
       console.error("Payment failed:", err);
       setStatus('error');
-      
+
       if (err.code === 'INSUFFICIENT_FUNDS') {
         setErrorMessage("Insufficient funds for fee + gas.");
       } else if (err.code === 'ACTION_REJECTED') {
@@ -107,7 +100,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
             )}
           </div>
 
-          {/* Action Details */}
           <div className="p-4 bg-slate-800/50 rounded-2xl border border-white/5 space-y-3">
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Action</span>
@@ -117,13 +109,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
               <span className="text-slate-400">Network Fee</span>
               <span className="text-white font-medium">{APP_CONFIG.TRANSACTION_FEE} ETH</span>
             </div>
-             <div className="flex justify-between items-center text-xs text-slate-500 pt-2 border-t border-white/5">
+            <div className="flex justify-between items-center text-xs text-slate-500 pt-2 border-t border-white/5">
               <span>+ Estimated Gas</span>
               <span>~0.00005 ETH</span>
             </div>
           </div>
 
-          {/* Status Display */}
           {status === 'error' && (
             <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-400 text-sm">
               <AlertCircle className="w-5 h-5 shrink-0" />
@@ -138,9 +129,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Payment Successful!</h3>
-                <a 
-                  href={`${APP_CONFIG.EXPLORER_URL}/tx/${txHash}`} 
-                  target="_blank" 
+                <a
+                  href={`${APP_CONFIG.EXPLORER_URL}/tx/${txHash}`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-indigo-400 hover:underline mt-1 block"
                 >
@@ -151,16 +142,15 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
             </div>
           )}
 
-          {/* Action Buttons */}
           {status === 'idle' && (
             <div className="space-y-3">
-              <button 
+              <button
                 onClick={handlePayment}
                 className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg active:scale-[0.98] flex items-center justify-center gap-2"
               >
                 Pay {APP_CONFIG.TRANSACTION_FEE} ETH & Continue
               </button>
-              <button 
+              <button
                 onClick={onClose}
                 className="w-full py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-2xl font-medium transition-colors text-sm"
               >
@@ -171,9 +161,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
 
           {status === 'processing' && (
             <div className="text-center py-4 space-y-4">
-               <div className="w-10 h-10 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto"></div>
-               <p className="text-sm text-slate-300 font-medium animate-pulse">Processing Transaction...</p>
-               <p className="text-xs text-slate-500">Please confirm in your wallet</p>
+              <div className="w-10 h-10 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto"></div>
+              <p className="text-sm text-slate-300 font-medium animate-pulse">Processing Transaction...</p>
+              <p className="text-xs text-slate-500">Please confirm in your wallet</p>
             </div>
           )}
 

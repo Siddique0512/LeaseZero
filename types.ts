@@ -18,7 +18,7 @@ export interface Property {
   maxMissedPayments: number; // Reliability threshold
   maxOccupants: number; // Capacity threshold
   minTenancyDuration: string; // New: Length of Stay Preference
-  
+
   // Detailed View Fields
   description: string;
   amenities: string[];
@@ -66,7 +66,7 @@ export interface Application {
   occupants: number;
   moveInDate: string;
   isEligibleFHE: boolean;
-  
+
   // Verification Attestation Fields
   docHash?: string; // Cryptographic hash of the documents
   verificationTx?: string; // Transaction hash where verification was submitted
@@ -92,4 +92,10 @@ export enum ViewState {
   HOME = '/',
   LANDLORD = '/landlord',
   TENANT = '/tenant',
+}
+
+declare global {
+  interface Window {
+    ethereum?: any;
+  }
 }

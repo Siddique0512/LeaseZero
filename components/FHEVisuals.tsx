@@ -38,7 +38,7 @@ export const EncryptedDataFlow = () => {
             </svg>
           </div>
         </div>
-        <span className="text-xs text-indigo-300 font-bold">FHEVM Engine</span>
+        <span className="text-xs text-indigo-300 font-bold">Verification Engine</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <div className="p-4 bg-slate-800 rounded-2xl border border-slate-700">
